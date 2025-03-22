@@ -26,64 +26,72 @@ Este repositorio contiene una colección de tutoriales de C++ enfocados en punte
 
 ## Estructura del Proyecto
 
-Cada tutorial está en su propio directorio con un archivo .cpp que contiene el código del ejemplo:
+```
+proyecto/
+├── 39_Pointers/                 - Conceptos básicos de punteros
+│   ├── Pointers.cpp            - Código fuente
+│   └── build/                  - Directorio de compilación (generado automáticamente)
+│       └── Pointers           - Ejecutable (generado al compilar)
+├── 40_Arithmetic/              - Aritmética de punteros
+├── 41_2Pointers and Arrays/    - Punteros y arreglos
+└── ... otros directorios
+```
 
-```
-39_Pointers/                    - Conceptos básicos de punteros
-  ├─ main.cpp                   - Código del ejemplo
-  └─ README.md                  - Explicación del concepto
-40_Arithmetic/                  - Aritmética de punteros
-41_2Pointers and Arrays/       - Punteros y arreglos
-42_Pointer Arithmetic/         - Aritmética avanzada de punteros
-43_CharArrays/                 - Arreglos de caracteres
-44_ReversingString/           - Manipulación de cadenas
-45_References/                - Referencias en C++
-46_Const/                     - Palabra clave const
-47_Copy Constructors/         - Constructores de copia
-48_New Operator/              - Asignación dinámica de memoria
-49_Returning Objects/         - Retorno de objetos desde métodos
-50_Allocating Memory/         - Asignación de memoria
-51_Arrays and Functions/      - Arreglos con funciones
-52_Namespaces/               - Espacios de nombres en C++
-```
+Cada tutorial está en su propio directorio y cuando se compila, se crea automáticamente una carpeta `build/` que contiene los ejecutables. Esta carpeta `build/` está excluida de git para mantener limpio el repositorio.
 
 ## Compilación y Ejecución
 
-### Opción 1: Ejecutar archivos .cpp directamente (Recomendado)
+### Usando VSCode (Método Recomendado)
+1. Abre la carpeta del tutorial en VSCode
+2. Abre el archivo `.cpp` que deseas ejecutar
+3. Presiona `Ctrl+Shift+B` (Windows) o `Cmd+Shift+B` (macOS)
+4. ¡Listo! El programa se compilará y ejecutará automáticamente
 
-Esta es la forma más simple de ejecutar los ejemplos:
+El sistema:
+- Creará automáticamente una carpeta `build/` en el directorio del archivo fuente
+- Compilará y colocará el ejecutable dentro de esta carpeta
+- Ejecutará el programa mostrando la salida en un terminal nuevo
+
+### Compilación Manual (Alternativa)
+
+Si prefieres usar la terminal directamente:
 
 #### En Windows
 ```bash
-# Compilar y ejecutar en un solo paso
-cd 39_Pointers
-g++ Pointers.cpp -o Pointers && ./Pointers
+cd <directorio_del_ejemplo>
+mkdir build
+g++ archivo.cpp -o build/archivo.exe && ./build/archivo.exe
 ```
 
 #### En macOS
 ```bash
-# Compilar y ejecutar en un solo paso
-cd 39_Pointers
-g++-14 Pointers.cpp -o Pointers && ./Pointers
+cd <directorio_del_ejemplo>
+mkdir -p build
+g++-14 archivo.cpp -o build/archivo && ./build/archivo
 ```
 
-### Opción 2: Usar VSCode
+## Estructura de Archivos de Configuración
 
-1. Abre la carpeta del tutorial en VSCode (ejemplo: `39_Pointers`)
-2. Abre el archivo `main.cpp`
-3. Presiona F5 para compilar y ejecutar directamente
+### .gitignore
+- Excluye todas las carpetas `build/` en cualquier nivel del proyecto
+- Ignora archivos objeto (*.o, *.obj) y ejecutables (*.exe, *.out)
+- Mantiene el repositorio limpio de archivos binarios
 
 ## Solución de Problemas
 
 ### Problemas Comunes
 1. Si el comando g++ no funciona:
    - Windows: Verifica que MinGW esté en el PATH (C:\msys64\mingw64\bin)
-   - macOS: Usa g++-14 en lugar de g++
+   - macOS: Verifica que g++-14 esté instalado con `brew list | grep gcc`
 
 2. Si obtienes errores de compilación:
    - Verifica que estés en el directorio correcto
-   - Asegúrate de incluir todos los archivos necesarios en el comando de compilación
+   - Asegúrate de que todos los archivos necesarios estén presentes
 
-3. Si la depuración no funciona en VSCode:
-   - Windows: Verifica que gdb esté instalado
-   - macOS: Instala gdb con `brew install gdb` 
+3. Si VSCode no detecta el compilador:
+   - Windows: Reinicia VSCode después de agregar MinGW al PATH
+   - macOS: Verifica que la ruta a g++-14 sea correcta (/opt/homebrew/bin/g++-14)
+
+4. Si no se crea la carpeta build:
+   - Verifica que tengas permisos de escritura en el directorio
+   - Intenta crear la carpeta manualmente y verifica los permisos 

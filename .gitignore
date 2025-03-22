@@ -1,4 +1,17 @@
-/build
+# Build directories at any level
+**/build/
+
+# Compiled Object files
+*.o
+*.obj
+
+# Executables
+*.exe
+*.out
+
+# VS Code settings (optional)
+.vscode/settings.json
+
 /bin
 /lib
 /CMakeFiles

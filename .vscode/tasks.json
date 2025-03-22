@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "C++: Run Program (MacOS)",
+      "command": "mkdir -p '${fileDirname}/build' && /opt/homebrew/bin/g++-14 '${file}' -o '${fileDirname}/build/${fileBasenameNoExtension}' && '${fileDirname}/build/${fileBasenameNoExtension}'",
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "clear": true
+      },
+      "detail": "Build and Run C++ program (MacOS)",
+      "windows": {
+        "command": "if not exist '${fileDirname}\\build' mkdir '${fileDirname}\\build' && g++ '${file}' -o '${fileDirname}\\build\\${fileBasenameNoExtension}.exe' && '${fileDirname}\\build\\${fileBasenameNoExtension}.exe'",
+      }
+    }
+  ]
+}
