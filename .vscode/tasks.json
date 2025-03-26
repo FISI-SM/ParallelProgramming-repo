@@ -2,28 +2,28 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "C/C++: Build and Run (macOS)",
       "type": "shell",
-      "label": "C++: Run Program (MacOS)",
-      "command": "mkdir -p '${fileDirname}/build' && /opt/homebrew/bin/g++-14 '${file}' -o '${fileDirname}/build/${fileBasenameNoExtension}' && '${fileDirname}/build/${fileBasenameNoExtension}'",
-      "options": {
-        "cwd": "${fileDirname}"
-      },
+      "command": "mkdir -p build && /opt/homebrew/bin/g++-14 -fdiagnostics-color=always -g \"${file}\" -o \"build/${fileBasenameNoExtension}\" && \"./build/${fileBasenameNoExtension}\"",
       "problemMatcher": [
         "$gcc"
       ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
+      "options": {
+        "cwd": "${fileDirname}"
       },
-      "presentation": {
-        "reveal": "always",
-        "panel": "new",
-        "clear": true
+      "detail": "Build y run en macOS"
+    },
+    {
+      "label": "C/C++: Build and Run (Windows)",
+      "type": "shell",
+      "command": "mkdir build 2>nul & g++ -fdiagnostics-color=always -g \"${file}\" -o \"build/${fileBasenameNoExtension}.exe\" && \"build\\${fileBasenameNoExtension}.exe\"",
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
       },
-      "detail": "Build and Run C++ program (MacOS)",
-      "windows": {
-        "command": "if not exist '${fileDirname}\\build' mkdir '${fileDirname}\\build' && g++ '${file}' -o '${fileDirname}\\build\\${fileBasenameNoExtension}.exe' && '${fileDirname}\\build\\${fileBasenameNoExtension}.exe'",
-      }
+      "detail": "Build y run en Windows"
     }
   ]
 }

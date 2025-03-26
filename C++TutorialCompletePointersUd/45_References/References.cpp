@@ -9,11 +9,13 @@
 #include <iostream>
 using namespace std;
 
-void changeSomething(double &value) {
+void changeSomething(double &value)
+{
 	value = 123.4;
 }
 
-int main() {
+int main()
+{
 
 	int value1 = 8;
 	int &value2 = value1;

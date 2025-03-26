@@ -19,14 +19,18 @@ public:
   {
     cout << "Animal created." << endl;
   };
+
+  // Member Initialization List
   Animal(const Animal &other) : name(other.name)
   {
     cout << "Animal created by copying." << endl;
   };
+
   void setName(string name)
   {
     this->name = name;
   };
+
   void speak() const
   {
     cout << "My name is: " << name << endl;
@@ -36,6 +40,7 @@ public:
 int main()
 {
 
+  // Lives on the stack
   Animal animal1;
 
   animal1.setName("Freddy");

@@ -41,16 +41,24 @@ Cada tutorial está en su propio directorio y cuando se compila, se crea automá
 
 ## Compilación y Ejecución
 
-### Usando VSCode (Método Recomendado)
+### Usando VSCode
+
+#### Compilar y Ejecutar (Sin Depuración)
 1. Abre la carpeta del tutorial en VSCode
 2. Abre el archivo `.cpp` que deseas ejecutar
-3. Presiona `Ctrl+Shift+B` (Windows) o `Cmd+Shift+B` (macOS)
-4. ¡Listo! El programa se compilará y ejecutará automáticamente
+3. Presiona `Ctrl+Shift+B` (Windows) o `Cmd+Shift+B` (macOS) para compilar
+4. Para ejecutar, presiona `Ctrl+Shift+P` (Windows) o `Cmd+Shift+P` (macOS) y selecciona "Run Task", luego elige "C++: Run Program"
+
+#### Depurar el Programa
+1. Abre el archivo `.cpp` que deseas depurar
+2. Establece puntos de interrupción haciendo clic en el margen izquierdo donde deseas detener la ejecución
+3. Presiona `F5` para iniciar la depuración
+4. Utiliza los controles de depuración para paso a paso, continuar, etc.
 
 El sistema:
 - Creará automáticamente una carpeta `build/` en el directorio del archivo fuente
-- Compilará y colocará el ejecutable dentro de esta carpeta
-- Ejecutará el programa mostrando la salida en un terminal nuevo
+- Compilará con símbolos de depuración (-g) y colocará el ejecutable dentro de esta carpeta
+- Utilizará la herramienta de depuración adecuada para tu sistema (lldb en macOS, gdb en Windows)
 
 ### Compilación Manual (Alternativa)
 
@@ -60,17 +68,27 @@ Si prefieres usar la terminal directamente:
 ```bash
 cd <directorio_del_ejemplo>
 mkdir build
-g++ archivo.cpp -o build/archivo.exe && ./build/archivo.exe
+g++ -g archivo.cpp -o build/archivo.exe && ./build/archivo.exe
 ```
 
 #### En macOS
 ```bash
 cd <directorio_del_ejemplo>
 mkdir -p build
-g++-14 archivo.cpp -o build/archivo && ./build/archivo
+g++-14 -g archivo.cpp -o build/archivo && ./build/archivo
 ```
 
 ## Estructura de Archivos de Configuración
+
+### .vscode/tasks.json
+Define tareas para:
+- Compilar programas C++ con símbolos de depuración
+- Ejecutar programas compilados sin depuración
+
+### .vscode/launch.json
+Define configuraciones para:
+- Depurar programas C++ en macOS (usando lldb)
+- Depurar programas C++ en Windows (usando gdb)
 
 ### .gitignore
 - Excluye todas las carpetas `build/` en cualquier nivel del proyecto
@@ -92,6 +110,11 @@ g++-14 archivo.cpp -o build/archivo && ./build/archivo
    - Windows: Reinicia VSCode después de agregar MinGW al PATH
    - macOS: Verifica que la ruta a g++-14 sea correcta (/opt/homebrew/bin/g++-14)
 
-4. Si no se crea la carpeta build:
+4. Si la depuración no funciona correctamente:
+   - Verifica que el programa se compile con la bandera `-g` (incluida en las tareas configuradas)
+   - macOS: Asegúrate de que lldb esté instalado y funcione correctamente
+   - Windows: Verifica que gdb esté instalado (`pacman -S mingw-w64-x86_64-gdb` en MSYS2)
+
+5. Si no se crea la carpeta build:
    - Verifica que tengas permisos de escritura en el directorio
    - Intenta crear la carpeta manualmente y verifica los permisos 

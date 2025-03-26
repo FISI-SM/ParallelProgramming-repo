@@ -9,15 +9,17 @@
 #include <iostream>
 using namespace std;
 
-int main() {
+int main()
+{
 	char texts[] = "helloX ";
 
 	cout << texts << endl;
 
-	//std::cout<<"SizeOf array: "<<sizeof(texts)<<endl;
+	std::cout << "SizeOf array: " << sizeof(texts) << endl;
 
-	for(int i=0; i<sizeof(texts); i++) {
-		cout << i << ": " << (int)texts[i] <<"-"<<texts[i]<< endl;
+	for (int i = 0; i < sizeof(texts); i++)
+	{
+		cout << i << ": " << (int)texts[i] << "-" << texts[i] << endl;
 	}
 
 	return 0;

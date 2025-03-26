@@ -12,7 +12,7 @@ using namespace std;
 int main()
 {
 
-  const int NSTRINGS = 5;
+  const int NSTRINGS = 5; //
   string texts[NSTRINGS] = {"one", "two", "three", "four", "five"};
   string *pTexts = texts;
   pTexts += 3;

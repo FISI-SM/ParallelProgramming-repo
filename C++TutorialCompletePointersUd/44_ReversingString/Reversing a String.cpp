@@ -9,16 +9,19 @@
 #include <iostream>
 using namespace std;
 
-int main() {
+int main()
+{
 
 	char text[] = "Hello there!";
 
-	int nChars = sizeof(text)-1;
+	int nChars = sizeof(text) - 1;
 
 	char *pStart = text;
 	char *pEnd = text + nChars - 1;
 
-	while(pStart < pEnd) {
+	// pEnd - pStart > 0
+	while (pStart < pEnd)
+	{
 
 		char save = *pStart;
 		*pStart = *pEnd;
@@ -29,7 +32,6 @@ int main() {
 	}
 
 	cout << text << endl;
-
 
 	return 0;
 }

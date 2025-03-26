@@ -9,13 +9,15 @@
 #include <iostream>
 using namespace std;
 
-void manipulate(double *pValue) {
+void manipulate(double *pValue)
+{
 	cout << "2. Value of double in manipulate: " << *pValue << endl;
 	*pValue = 10.0;
 	cout << "3. Value of double in manipulate: " << *pValue << endl;
 }
 
-int main() {
+int main()
+{
 
 	int nValue = 8;
 	int *pnValue = &nValue;

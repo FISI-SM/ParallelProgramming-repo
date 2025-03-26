@@ -9,7 +9,8 @@
 #include <iostream>
 using namespace std;
 
-class Animal {
+class Animal
+{
 private:
 	string name;
 
@@ -19,7 +20,8 @@ public:
 	// const void speak() { cout << "My name is: " << name << endl; } // @suppress("No return")
 };
 
-int main() {
+int main()
+{
 
 	const double PI = 3.141592;
 	cout << PI << endl;
@@ -33,11 +35,11 @@ int main() {
 	// const int * const pValue = &value;
 	int *pValue = &value;
 
-	cout << *pValue << endl;
+	cout << *pValue << endl; // 8
 
 	int number = 11;
 	pValue = &number; // Error with this: int * const pValue = &value;
-	*pValue = 12; // Error with this: const int *pValue = &value;
+	*pValue = 12;			// Error with this: const int *pValue = &value;
 
 	cout << *pValue << endl;
 

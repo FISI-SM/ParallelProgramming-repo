@@ -18,6 +18,7 @@ int main()
 
   string texts[] = {"one", "two", "three"};
   string *pTexts = texts;
+
   for (int i = 0; i < sizeof(texts) / sizeof(string); i++)
   {
     cout << pTexts[i] << " " << flush;

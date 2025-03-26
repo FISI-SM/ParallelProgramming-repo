@@ -60,4 +60,7 @@ int main()
   cout << name << endl;
 
   return 0;
+
+  // 97 - 122
+  // 65 - 90
 }

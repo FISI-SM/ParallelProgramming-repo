@@ -43,11 +43,15 @@ public:
 
 int main()
 {
+  // Lives on the heap
   Animal *pCat1 = new Animal();
   pCat1->setName("Freddy");
   pCat1->speak();
+  // (*pCat1).speak();
   delete pCat1;
 
+  // 8 bytes in 64-bits
+  // 4 bytes in 32-bits
   cout << sizeof(pCat1) << endl;
 
   return 0;
