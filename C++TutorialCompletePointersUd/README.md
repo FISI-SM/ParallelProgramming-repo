@@ -60,6 +60,18 @@ El sistema:
 - Compilará con símbolos de depuración (-g) y colocará el ejecutable dentro de esta carpeta
 - Utilizará la herramienta de depuración adecuada para tu sistema (lldb en macOS, gdb en Windows)
 
+## Extensiones Recomendadas para VSCode
+
+Para una mejor experiencia de desarrollo en C++, asegúrate de tener instalada la extensión oficial del lenguaje:
+
+- [C/C++ Extension Pack (Microsoft)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack)  
+  Incluye:
+  - Soporte completo para IntelliSense
+  - Depuración (gdb/lldb)
+  - Explorador de símbolos
+  - Formateo de código y más
+
+
 ### Compilación Manual (Alternativa)
 
 Si prefieres usar la terminal directamente:
