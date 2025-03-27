@@ -11,9 +11,9 @@ using namespace std;
 
 int main()
 {
-	char texts[] = "helloX ";
+	char texts[] = "helloX "; // "\0"
 
-	cout << texts << endl;
+	cout << texts << endl; // "helloX "
 
 	std::cout << "SizeOf array: " << sizeof(texts) << endl;
 

@@ -1,4 +1,3 @@
-//============================================================================
 // Name        : Namespaces.cpp
 // Author      : John Purcell
 // Version     :
@@ -14,7 +13,8 @@
 using namespace std;
 using namespace jwp;
 
-int main() {
+int main()
+{
 
 	Cat cat;
 	cat.speak();

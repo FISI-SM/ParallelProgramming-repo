@@ -17,18 +17,18 @@ int main()
 {
 
   string texts[] = {"one", "two", "three"};
-  string *pTexts = texts;
+  string *pTexts = texts; // &texts[0]
 
   for (int i = 0; i < sizeof(texts) / sizeof(string); i++)
   {
-    cout << pTexts[i] << " " << flush;
+    cout << pTexts[i] << " " << flush; // "one", "two", "three"
   }
   cout << endl;
 
   for (int i = 0; i < sizeof(texts) / sizeof(string); i++, pTexts++)
   {
-    cout << pTexts << " ";
-    cout << *pTexts << " " << flush;
+    cout << pTexts << " ";           // 0xabc
+    cout << *pTexts << " " << flush; // "one"
     cout << "\n";
   }
 
@@ -39,7 +39,7 @@ int main()
 
   while (true)
   {
-    cout << *pElement << " " << flush;
+    cout << *pElement << " " << flush; // "one"
 
     if (pElement == pEnd)
     {
