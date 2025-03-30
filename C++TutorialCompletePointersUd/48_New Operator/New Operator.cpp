@@ -43,6 +43,8 @@ public:
 
 int main()
 {
+  // Lives on the stack
+  Animal animal;
   // Lives on the heap
   Animal *pCat1 = new Animal();
   pCat1->setName("Freddy");

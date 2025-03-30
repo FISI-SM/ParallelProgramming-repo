@@ -26,7 +26,7 @@ int main()
 	const double PI = 3.141592;
 	cout << PI << endl;
 
-	Animal animal;
+	Animal animal; // STack
 	animal.setName("Freddy");
 	animal.speak();
 
