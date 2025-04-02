@@ -74,6 +74,7 @@ int main(int argc, char *argv[])
 		// Calculo de PI
 		h = 1.0 / (double)n;
 		sum = 0.0;
+
 		for (int i = rank + 1; i <= n; i += size)
 		{
 			double x = h * ((double)i - 0.5);

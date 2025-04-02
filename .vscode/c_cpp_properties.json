@@ -3,7 +3,8 @@
     {
       "name": "Mac",
       "includePath": [
-        "${workspaceFolder}/**"
+        "${workspaceFolder}/**",
+        "/opt/homebrew/Cellar/open-mpi/5.0.7/include"
       ],
       "defines": [],
       "compilerPath": "/opt/homebrew/bin/g++-14",

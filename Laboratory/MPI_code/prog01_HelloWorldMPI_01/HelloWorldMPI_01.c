@@ -7,12 +7,11 @@
  Description : Hello World
  ============================================================================
  */
-#include <iostream>
-using namespace std;
- 
+#include <stdio.h>
+
 int main(int argc, char *argv[])
 {
-    cout<<"¡Hola Mundo soy proceso unico! "<<endl;  
+    printf("¡Hola Mundo soy proceso unico!\n");
 
     return 0;
 }
