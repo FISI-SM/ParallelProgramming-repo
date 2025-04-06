@@ -24,6 +24,18 @@
         "cwd": "${fileDirname}"
       },
       "detail": "Build y run en Windows"
+    },
+    {
+      "label": "MPI: Build and Run (macOS)",
+      "type": "shell",
+      "command": "mkdir -p build && mpicc \"${file}\" -o \"build/${fileBasenameNoExtension}\" && mpirun -np 4 \"./build/${fileBasenameNoExtension}\"",
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "detail": "Compilar y correr con MPI en macOS"
     }
   ]
 }
