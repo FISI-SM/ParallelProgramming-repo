@@ -1,5 +1,8 @@
 # Build directories at any level
 **/build/
+**/bin/
+**/out/
+**/dist/
 
 # Compiled Object files
 *.o
@@ -12,9 +15,23 @@
 # VS Code settings (optional)
 .vscode/settings.json
 
-/bin
-/lib
-/CMakeFiles
-/cmake_install.cmake
-/Makefile
-/cmake_install.cmake
+
+# Core dumps
+core
+*.core
+
+# Swap files and temporary files
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Shared objects and libraries
+*.so
+*.so.*
+
+# Kernel modules
+*.ko
+
