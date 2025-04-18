@@ -29,12 +29,10 @@ Este repositorio contiene una colección de tutoriales de C enfocados en puntero
 
 ```
 proyecto/
-├── 39_Pointers/                 - Conceptos básicos de punteros
-│   ├── Pointers.c              - Código fuente en C
+├── 0_Cpointers/                 - Conceptos básicos de punteros
+│   ├── 1_Pointers.c              - Código fuente en C
 │   └── build/                  - Directorio de compilación (generado automáticamente)
 │       └── Pointers            - Ejecutable (generado al compilar)
-├── 40_Arithmetic/              - Aritmética de punteros
-├── 41_2Pointers and Arrays/    - Punteros y arreglos
 └── ... otros directorios
 ```
 
