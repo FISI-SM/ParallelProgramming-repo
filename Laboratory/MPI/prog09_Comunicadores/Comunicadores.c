@@ -1,15 +1,13 @@
-#include "mpi.h"
-#include <vector>
-#include <cstdlib>
-#include <iostream>
-using namespace std;
+#include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char *argv[]) {
 	int rank, size;
 
-	MPI_Init(&argc, &argv); //iniciamos el entorno MPI
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank); //obtenemos el identificador del proceso
-	MPI_Comm_size(MPI_COMM_WORLD, &size); //obtenemos el numero de procesos
+	MPI_Init(&argc, &argv); // iniciamos el entorno MPI
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank); // obtenemos el identificador del proceso
+	MPI_Comm_size(MPI_COMM_WORLD, &size); // obtenemos el numero de procesos
 
 	MPI_Comm comm // nuevo comunicador para pares o impares
 			, comm_inverso; // nuevo para todos los procesos pero con rank inverso.
@@ -30,7 +28,7 @@ int main(int argc, char *argv[]) {
 	// creamos un nuevo cominicador
 	MPI_Comm_split(MPI_COMM_WORLD // a partir del comunicador global.
 			, color // los del mismo color entraran en el mismo comunicador
-			// lo pares tiene color 0 y los impares 1.
+			// los pares tienen color 0 y los impares 1.
 			, rank, // indica el orden de asignacion de rango dentro de los nuevos comunicadores
 			&comm); // Referencia al nuevo comunicador creado.
 	// creamos un nuevo comunicador inverso.
@@ -45,19 +43,15 @@ int main(int argc, char *argv[]) {
 	MPI_Comm_rank(comm_inverso, &rank_inverso); // obtenemos el nuevo rango asignado en comm_inverso
 	MPI_Comm_size(comm_inverso, &size_inverso); // obtenemos numero de procesos dentro del comunicador
 
-	//Probamos a enviar datos por distintos comunicadores
-	MPI_Bcast(&b, 1, MPI_INT, size - 1, // el proceso con rango 0 dentro de MPI_COMM_WORLD sera root
-	comm_inverso);
+	// Probamos a enviar datos por distintos comunicadores
+	MPI_Bcast(&b, 1, MPI_INT, size - 1, // el proceso con rango size-1 dentro de MPI_COMM_WORLD sera root
+	          comm_inverso);
 	MPI_Bcast(&a, 1, MPI_INT, 0, // el proceso con rango 0 dentro de comm sera root
-			comm);
+	          comm);
 
-	cout << "Soy el proceso " << rank << " de " << size
-			<< " dentro de MPI_COMM_WORLD,"
-					"\n\t mi rango en COMM_nuevo es " << rank_nuevo << ", de "
-			<< size_nuevo << ", aqui he recibido el valor " << a
-			<< ",\n\ten COMM_inverso mi rango es " << rank_inverso << " de "
-			<< size_inverso << " aqui he recibido el valor " << b << "\n"
-			<< endl;
+	printf("Soy el proceso %d de %d dentro de MPI_COMM_WORLD,\n", rank, size);
+	printf("\tmi rango en COMM_nuevo es %d, de %d, aqui he recibido el valor %d,\n", rank_nuevo, size_nuevo, a);
+	printf("\ten COMM_inverso mi rango es %d de %d, aqui he recibido el valor %d\n\n", rank_inverso, size_inverso, b);
 
 	MPI_Finalize();
 	return 0;

@@ -1,59 +1,57 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <mpi.h>
-
-using namespace std;
 
 int main(int argc, char * argv[]) {
 
     int rank_sz,
-            my_rank;
+        my_rank;
     long **A, // Matriz a multiplicar
-            *x, // Vector que vamos a multiplicar
-            *y, // Vector donde almacenamos el resultado
-            *miFila, // La fila que almacena localmente un proceso
-            *comprueba; // Guarda el resultado final (calculado secuencialmente), su valor
-                        // debe ser igual al de 'y'
+         *x, // Vector que vamos a multiplicar
+         *y, // Vector donde almacenamos el resultado
+         *miFila, // La fila que almacena localmente un proceso
+         *comprueba; // Guarda el resultado final (calculado secuencialmente), su valor
+                    // debe ser igual al de 'y'
 
     double tInicio, // Tiempo en el que comienza la ejecucion
-            tFin; // Tiempo en el que acaba la ejecucion
+           tFin; // Tiempo en el que acaba la ejecucion
 
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &rank_sz);
     MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
 
-    A = new long *[rank_sz]; // Reservamos tantas filas como procesos haya
-    x = new long [rank_sz]; // El vector sera del mismo tamanio que el numero
+    A = (long **) malloc(rank_sz * sizeof(long *)); // Reservamos tantas filas como procesos haya
+    x = (long *) malloc(rank_sz * sizeof(long)); // El vector sera del mismo tamanio que el numero
     // de procesadores
 
     // Solo el proceso 0 ejecuta el siguiente bloque
     if (my_rank == 0) {
-        A[0] = new long [rank_sz * rank_sz];
+        A[0] = (long *) malloc(rank_sz * rank_sz * sizeof(long));
         for (unsigned int i = 1; i < rank_sz; i++) {
             A[i] = A[i - 1] + rank_sz;
         }
         // Reservamos espacio para el resultado
-        y = new long [rank_sz];
+        y = (long *) malloc(rank_sz * sizeof(long));
 
         // Rellenamos 'A' y 'x' con valores aleatorios
         srand(time(0));
-        cout << "La matriz y el vector generados son " << endl;
+        printf("La matriz y el vector generados son \n");
         for (unsigned int i = 0; i < rank_sz; i++) {
             for (unsigned int j = 0; j < rank_sz; j++) {
-                if (j == 0) cout << "[";
+                if (j == 0) printf("[");
                 A[i][j] = rand() % 1000;
-                cout << A[i][j];
-                if (j == rank_sz - 1) cout << "]";
-                else cout << "  ";
+                printf("%ld", A[i][j]);
+                if (j == rank_sz - 1) printf("]");
+                else printf("  ");
             }
             x[i] = rand() % 100;
-            cout << "\t  [" << x[i] << "]" << endl;
+            printf("\t  [%ld]\n", x[i]);
         }
-        cout << "\n";
+        printf("\n");
 
         // Reservamos espacio para la comprobacion
-        comprueba = new long [rank_sz];
+        comprueba = (long *) malloc(rank_sz * sizeof(long));
         // Lo calculamos de forma secuencial
         for (unsigned int i = 0; i < rank_sz; i++) {
             comprueba[i] = 0;
@@ -64,26 +62,25 @@ int main(int argc, char * argv[]) {
     } // Termina el trozo de codigo que ejecuta solo 0
 
     // Reservamos espacio para la fila local de cada proceso
-    miFila = new long [rank_sz];
+    miFila = (long *) malloc(rank_sz * sizeof(long));
 
     // Repartimos una fila por cada proceso, es posible hacer la reparticion de esta
     // manera ya que la matriz esta creada como un unico vector.
-    MPI_Scatter(A[0], // Matriz que vamos a compartir
-            rank_sz, // Numero de columnas a compartir
-            MPI_LONG, // Tipo de dato a enviar
-            miFila, // Vector en el que almacenar los datos
-            rank_sz, // Numero de columnas a compartir
-            MPI_LONG, // Tipo de dato a recibir
-            0, // Proceso raiz que envia los datos
-            MPI_COMM_WORLD); // Comunicador utilizado (En este caso, el global)
+    MPI_Scatter(A ? A[0] : NULL, // Matriz que vamos a compartir
+                rank_sz, // Numero de columnas a compartir
+                MPI_LONG, // Tipo de dato a enviar
+                miFila, // Vector en el que almacenar los datos
+                rank_sz, // Numero de columnas a compartir
+                MPI_LONG, // Tipo de dato a recibir
+                0, // Proceso raiz que envia los datos
+                MPI_COMM_WORLD); // Comunicador utilizado (En este caso, el global)
 
     // Compartimos el vector entre todas los procesos
     MPI_Bcast(x, // Dato a compartir
-            rank_sz, // Numero de elementos que se van a enviar y recibir
-            MPI_LONG, // Tipo de dato que se compartira
-            0, // Proceso raiz que envia los datos
-            MPI_COMM_WORLD); // Comunicador utilizado (En este caso, el global)
-
+              rank_sz, // Numero de elementos que se van a enviar y recibir
+              MPI_LONG, // Tipo de dato que se compartira
+              0, // Proceso raiz que envia los datos
+              MPI_COMM_WORLD); // Comunicador utilizado (En este caso, el global)
 
     // Hacemos una barrera para asegurar que todas los procesos comiencen la ejecucion
     // a la vez, para tener mejor control del tiempo empleado
@@ -107,13 +104,13 @@ int main(int argc, char * argv[]) {
     // en el mismo orden en el que se hace el Scatter, con lo que cada escalar
     // acaba en su posicion correspondiente del vector.
     MPI_Gather(&subFinal, // Dato que envia cada proceso
-            1, // Numero de elementos que se envian
-            MPI_LONG, // Tipo del dato que se envia
-            y, // Vector en el que se recolectan los datos
-            1, // Numero de datos que se esperan recibir por cada proceso
-            MPI_LONG, // Tipo del dato que se recibira
-            0, // proceso que va a recibir los datos
-            MPI_COMM_WORLD); // Canal de comunicacion (Comunicador Global)
+               1, // Numero de elementos que se envian
+               MPI_LONG, // Tipo del dato que se envia
+               y, // Vector en el que se recolectan los datos
+               1, // Numero de datos que se esperan recibir por cada proceso
+               MPI_LONG, // Tipo del dato que se recibira
+               0, // proceso que va a recibir los datos
+               MPI_COMM_WORLD); // Canal de comunicacion (Comunicador Global)
 
     // Terminamos la ejecucion de los procesos, despues de esto solo existira
     // el proceso 0
@@ -126,25 +123,25 @@ int main(int argc, char * argv[]) {
 
         unsigned int errores = 0;
 
-        cout << "El resultado obtenido y el esperado son:" << endl;
+        printf("El resultado obtenido y el esperado son:\n");
         for (unsigned int i = 0; i < rank_sz; i++) {
-            cout << "\t" << y[i] << "\t|\t" << comprueba[i] << endl;
+            printf("\t%ld\t|\t%ld\n", y[i], comprueba[i]);
             if (comprueba[i] != y[i])
                 errores++;
         }
 
-        delete [] y;
-        delete [] comprueba;
-        delete [] A[0];
+        free(y);
+        free(comprueba);
+        free(A[0]);
 
         if (errores) {
-            cout << "Hubo " << errores << " errores." << endl;
+            printf("Hubo %u errores.\n", errores);
         } else {
-            cout << "No hubo errores" << endl;
-            cout << "El tiempo tardado ha sido " << tFin - tInicio << " segundos." << endl;
+            printf("No hubo errores\n");
+            printf("El tiempo tardado ha sido %lf segundos.\n", tFin - tInicio);
         }
     }
-    delete [] x;
-    delete [] A;
-    delete [] miFila;
+    free(x);
+    free(A);
+    free(miFila);
 }

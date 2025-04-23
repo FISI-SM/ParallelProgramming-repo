@@ -1,8 +1,6 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int main(int argc, char * argv[]) {
 
@@ -13,40 +11,40 @@ int main(int argc, char * argv[]) {
 	int n;
 	if (argc <= 1) { // si no se pasa por parametro el tamaño de la matriz,
 					 //se coge por defecto el numero de procesadores
-		cout << "Falta el tamanio de la matriz, por defecto cogemos 10" << endl;
+		printf("Falta el tamanio de la matriz, por defecto cogemos 10\n");
 		n = 10;
 	} else
 		n = atoi(argv[1]);
 
-	A = new long *[n];       //reservamos espacio para las n filas de la matriz.
-	x = new long[n];                    //reservamos espacio para el vector.
+	A = (long **) malloc(n * sizeof(long *));       //reservamos espacio para las n filas de la matriz.
+	x = (long *) malloc(n * sizeof(long));          //reservamos espacio para el vector.
 
 	//Rellena la matriz
-	A[0] = new long[n * n];
+	A[0] = (long *) malloc(n * n * sizeof(long));
 	for (unsigned int i = 1; i < n; i++) {
 		A[i] = A[i - 1] + n;
 	}
 
 	// Rellena A y x con valores aleatorios
 	srand(time(0));
-	cout << "La matriz y el vector generados son " << endl;
+	printf("La matriz y el vector generados son \n");
 	for (unsigned int i = 0; i < n; i++) {
 		for (unsigned int j = 0; j < n; j++) {
 			if (j == 0)
-				cout << "[";
+				printf("[");
 			A[i][j] = rand() % 1000;
-			cout << A[i][j];
+			printf("%ld", A[i][j]);
 			if (j == n - 1)
-				cout << "]";
+				printf("]");
 			else
-				cout << "  ";
+				printf("  ");
 		}
 		x[i] = rand() % 100;
-		cout << "\t  [" << x[i] << "]" << endl;
+		printf("\t  [%ld]\n", x[i]);
 	}
-	cout << "\n";
+	printf("\n");
 
-	comprueba = new long[n];
+	comprueba = (long *) malloc(n * sizeof(long));
 	//Calculamos la multiplicacion secuencial para
 	//despues comprobar que es correcta la solucion.
 	for (unsigned int i = 0; i < n; i++) {
@@ -56,17 +54,16 @@ int main(int argc, char * argv[]) {
 		}
 	}
 
-	cout << "El resultado obtenido y el esperado son:" << endl;
+	printf("El resultado obtenido y el esperado son:\n");
 	for (unsigned int i = 0; i < n; i++) {
-		cout << comprueba[i] << endl;
+		printf("%ld\n", comprueba[i]);
 	}
 
-	delete[] comprueba;
-	delete[] A[0];
+	free(comprueba);
+	free(A[0]);
 
-	delete[] x;
-	delete[] A;
+	free(x);
+	free(A);
 
 	return 0;
-
 }
