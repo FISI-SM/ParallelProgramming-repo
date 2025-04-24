@@ -16,26 +16,13 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/lib/x86_64-linux-gnu/openmpi/include"
+                "${MSMPI_INC}"
             ],
             "defines": [],
             "compilerPath": "C://msys64//mingw64//bin//g++.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-x64"
-        },
-        {
-            "name": "Linux",
-            "includePath": [
-                "${workspaceFolder}/**",
-                "/usr/lib/x86_64-linux-gnu/openmpi/include",
-                "/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi"
-            ],
-            "defines": [],
-            "compilerPath": "/usr/bin/mpic++",
-            "cStandard": "c17",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "linux-gcc-x64"
         }
     ],
     "version": 4

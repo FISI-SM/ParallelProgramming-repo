@@ -14,28 +14,50 @@
       "detail": "Build y run en macOS"
     },
     {
-      "label": "C/C++: Build and Run (Windows)",
+      "label": "Compilar MPI con MinGW",
       "type": "shell",
-      "command": "mkdir build 2>nul & g++ -fdiagnostics-color=always -g \"${file}\" -o \"build/${fileBasenameNoExtension}.exe\" && \"build\\${fileBasenameNoExtension}.exe\"",
-      "problemMatcher": [
-        "$gcc"
+      "command": "gcc",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-g",
+        "${file}",
+        "-I",
+        "C://Program Files (x86)//Microsoft SDKs//MPI//Include",
+        "-L",
+        "C://Program Files (x86)//Microsoft SDKs//MPI//Lib//x64",
+        "-lmsmpi",
+        "-o",
+        "${fileDirname}//${fileBasenameNoExtension}.exe"
       ],
       "options": {
         "cwd": "${fileDirname}"
       },
-      "detail": "Build y run en Windows"
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "Compila con GCC y enlaza MS-MPI"
     },
     {
-      "label": "MPI: Build and Run (macOS)",
+      "label": "Ejecutar con mpiexec",
       "type": "shell",
-      "command": "mkdir -p build && mpicc \"${file}\" -o \"build/${fileBasenameNoExtension}\" && mpirun -np 4 \"./build/${fileBasenameNoExtension}\"",
-      "problemMatcher": [
-        "$gcc"
+      "command": "mpiexec",
+      "args": [
+        "-n",
+        "4",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe"
       ],
-      "options": {
-        "cwd": "${fileDirname}"
-      },
-      "detail": "Compilar y correr con MPI en macOS"
+      "dependsOn": "Compilar MPI con MinGW",
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
     }
   ]
 }
