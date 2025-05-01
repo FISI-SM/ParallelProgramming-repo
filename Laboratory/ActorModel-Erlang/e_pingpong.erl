@@ -1,4 +1,4 @@
--module(pingpong).
+-module(e_pingpong).
 -export([ping/0, pong/0]).
 
 ping() ->

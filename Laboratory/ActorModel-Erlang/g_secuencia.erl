@@ -1,4 +1,4 @@
--module(secuencia).
+-module(g_secuencia).
 -export([lista/1]).
 
 lista(N) ->

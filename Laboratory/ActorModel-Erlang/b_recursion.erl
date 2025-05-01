@@ -1,4 +1,4 @@
--module(recursion).
+-module(b_recursion).
 -export([sum/1]).
 
 sum(0) -> 0;

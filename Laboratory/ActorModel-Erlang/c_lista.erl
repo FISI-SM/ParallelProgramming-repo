@@ -1,4 +1,4 @@
--module(lista).
+-module(c_lista).
 -export([sum_list/1]).
 
 sum_list(List) ->

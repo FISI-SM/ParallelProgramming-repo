@@ -1,4 +1,4 @@
--module(worker).
+-module(f_worker).
 -export([start/2, task/2]).
 
 start(Name, Msg) ->

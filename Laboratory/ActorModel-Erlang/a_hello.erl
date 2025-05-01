@@ -1,4 +1,4 @@
--module(hello).
+-module(a_hello).
 -export([start/0]).
 
 start() ->

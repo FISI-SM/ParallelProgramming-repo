@@ -1,4 +1,4 @@
--module(actor).
+-module(d_actor).
 -export([start/0, loop/0]).
 
 start() ->
