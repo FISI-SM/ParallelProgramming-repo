@@ -2,7 +2,7 @@
 -export([ping/0, pong/0]).
 
 ping() ->
-    PongPid = spawn(pingpong, pong, []),
+    PongPid = spawn(e_pingpong, pong, []),
     PongPid ! {ping, self()},
     receive
         pong -> io:format("Received pong!~n")

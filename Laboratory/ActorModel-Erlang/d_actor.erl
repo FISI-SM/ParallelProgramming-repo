@@ -2,7 +2,7 @@
 -export([start/0, loop/0]).
 
 start() ->
-    spawn(actor, loop, []).
+    spawn(d_actor, loop, []).
 
 loop() ->
     receive
