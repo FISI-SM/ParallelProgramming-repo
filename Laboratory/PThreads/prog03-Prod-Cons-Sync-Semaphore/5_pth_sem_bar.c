@@ -20,7 +20,7 @@
  *    Setting compile flag -DDEBUG will cause a message to be
  *    printed after completion of each barrier.
  *
- * IPP:   Section 4.8.2  (pp. 177  and ff.)
+ * IPP2:  Section 4.8.2  (pp. 189  and ff.)
  */
 
 #include <stdio.h>
